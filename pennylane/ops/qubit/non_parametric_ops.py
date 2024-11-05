@@ -76,12 +76,16 @@ class Hadamard(Observable, Operation):
     @property
     def name(self) -> str:
         return "Hadamard"
-    
+
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'X'}) : INV_SQRT2,
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Z'}) : INV_SQRT2})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "X"}): INV_SQRT2,
+                    qml.pauli.PauliWord({self.wires[0]: "Z"}): INV_SQRT2,
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: WiresLike, id: Optional[str] = None):
@@ -256,7 +260,9 @@ class PauliX(Observable, Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: "X"}): 1.0})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {qml.pauli.PauliWord({self.wires[0]: "X"}): 1.0}
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: Optional[WiresLike] = None, id: Optional[str] = None):
@@ -454,7 +460,9 @@ class PauliY(Observable, Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: "Y"}): 1.0})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {qml.pauli.PauliWord({self.wires[0]: "Y"}): 1.0}
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: WiresLike, id: Optional[str] = None):
@@ -649,7 +657,9 @@ class PauliZ(Observable, Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: "Z"}): 1.0})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {qml.pauli.PauliWord({self.wires[0]: "Z"}): 1.0}
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: WiresLike, id: Optional[str] = None):
@@ -847,8 +857,12 @@ class S(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : 0.5 + 0.5j,
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Z'}) : 0.5 - 0.5j})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): 0.5 + 0.5j,
+                    qml.pauli.PauliWord({self.wires[0]: "Z"}): 0.5 - 0.5j,
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: WiresLike, id: Optional[str] = None):
@@ -970,8 +984,12 @@ class T(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : (0.5 + 0.5 * INV_SQRT2 * (1 + 1.j)),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Z'}) : (0.5 - 0.5 * INV_SQRT2 * (1 + 1.j))})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): (0.5 + 0.5 * INV_SQRT2 * (1 + 1.0j)),
+                    qml.pauli.PauliWord({self.wires[0]: "Z"}): (0.5 - 0.5 * INV_SQRT2 * (1 + 1.0j)),
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: WiresLike, id: Optional[str] = None):
@@ -1091,8 +1109,12 @@ class SX(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : (0.5 + 0.5j),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'X'}) : (0.5 - 0.5j)})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): (0.5 + 0.5j),
+                    qml.pauli.PauliWord({self.wires[0]: "X"}): (0.5 - 0.5j),
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: WiresLike, id: Optional[str] = None):
@@ -1217,10 +1239,14 @@ class SWAP(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I', self.wires[1]: 'I'}) : 0.5,
-                                                             qml.pauli.PauliWord({self.wires[0]: 'X', self.wires[1]: 'X'}) : 0.5,
-                                                             qml.pauli.PauliWord({self.wires[0]: 'Y', self.wires[1]: 'Y'}) : 0.5,
-                                                             qml.pauli.PauliWord({self.wires[0]: 'Z', self.wires[1]: 'Z'}) : 0.5})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I", self.wires[1]: "I"}): 0.5,
+                    qml.pauli.PauliWord({self.wires[0]: "X", self.wires[1]: "X"}): 0.5,
+                    qml.pauli.PauliWord({self.wires[0]: "Y", self.wires[1]: "Y"}): 0.5,
+                    qml.pauli.PauliWord({self.wires[0]: "Z", self.wires[1]: "Z"}): 0.5,
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: WiresLike, id: Optional[str] = None):
@@ -1321,8 +1347,12 @@ class ECR(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'X', self.wires[1]: 'I'}) :   INV_SQRT2,
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Y', self.wires[1]: 'X'}) : - INV_SQRT2})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "X", self.wires[1]: "I"}): INV_SQRT2,
+                    qml.pauli.PauliWord({self.wires[0]: "Y", self.wires[1]: "X"}): -INV_SQRT2,
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: WiresLike, id: Optional[str] = None):
@@ -1460,10 +1490,14 @@ class ISWAP(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I', self.wires[1]: 'I'}) : 0.5,
-                                                             qml.pauli.PauliWord({self.wires[0]: 'X', self.wires[1]: 'X'}) : 0.5j,
-                                                             qml.pauli.PauliWord({self.wires[0]: 'Y', self.wires[1]: 'Y'}) : 0.5j,
-                                                             qml.pauli.PauliWord({self.wires[0]: 'Z', self.wires[1]: 'Z'}) : 0.5})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I", self.wires[1]: "I"}): 0.5,
+                    qml.pauli.PauliWord({self.wires[0]: "X", self.wires[1]: "X"}): 0.5j,
+                    qml.pauli.PauliWord({self.wires[0]: "Y", self.wires[1]: "Y"}): 0.5j,
+                    qml.pauli.PauliWord({self.wires[0]: "Z", self.wires[1]: "Z"}): 0.5,
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: WiresLike, id: Optional[str] = None):
@@ -1590,10 +1624,16 @@ class SISWAP(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I', self.wires[1]: 'I'}) : 0.5 + 0.5 * INV_SQRT2,
-                                                              qml.pauli.PauliWord({self.wires[0]: 'X', self.wires[1]: 'X'}) : 0.5j * INV_SQRT2,
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Y', self.wires[1]: 'Y'}) : 0.5j * INV_SQRT2,
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Z', self.wires[1]: 'Z'}) : 0.5 - 0.5 * INV_SQRT2})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I", self.wires[1]: "I"}): 0.5
+                    + 0.5 * INV_SQRT2,
+                    qml.pauli.PauliWord({self.wires[0]: "X", self.wires[1]: "X"}): 0.5j * INV_SQRT2,
+                    qml.pauli.PauliWord({self.wires[0]: "Y", self.wires[1]: "Y"}): 0.5j * INV_SQRT2,
+                    qml.pauli.PauliWord({self.wires[0]: "Z", self.wires[1]: "Z"}): 0.5
+                    - 0.5 * INV_SQRT2,
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(self, wires: WiresLike, id: Optional[str] = None):

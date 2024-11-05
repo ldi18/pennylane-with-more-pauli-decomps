@@ -79,8 +79,12 @@ class RX(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : qml.math.cos(self._phi / 2),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'X'}) : -1j * qml.math.sin(self._phi / 2)})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): qml.math.cos(self._phi / 2),
+                    qml.pauli.PauliWord({self.wires[0]: "X"}): -1j * qml.math.sin(self._phi / 2),
+                }
+            )
         return self._pauli_rep_cached
 
     def generator(self) -> "qml.Hamiltonian":
@@ -184,8 +188,12 @@ class RY(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : qml.math.cos(self._phi / 2),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Y'}) : -1j * qml.math.sin(self._phi / 2)})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): qml.math.cos(self._phi / 2),
+                    qml.pauli.PauliWord({self.wires[0]: "Y"}): -1j * qml.math.sin(self._phi / 2),
+                }
+            )
         return self._pauli_rep_cached
 
     def generator(self) -> "qml.Hamiltonian":
@@ -288,8 +296,12 @@ class RZ(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : qml.math.cos(self._phi / 2),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Z'}) : -1j * qml.math.sin(self._phi / 2)})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): qml.math.cos(self._phi / 2),
+                    qml.pauli.PauliWord({self.wires[0]: "Z"}): -1j * qml.math.sin(self._phi / 2),
+                }
+            )
         return self._pauli_rep_cached
 
     def generator(self) -> "qml.Hamiltonian":
@@ -433,8 +445,14 @@ class PhaseShift(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : 0.5 * (1 + qml.math.exp(1j * self._phi)),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Z'}) : 0.5 * (1 - qml.math.exp(1j * self._phi))})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): 0.5
+                    * (1 + qml.math.exp(1j * self._phi)),
+                    qml.pauli.PauliWord({self.wires[0]: "Z"}): 0.5
+                    * (1 - qml.math.exp(1j * self._phi)),
+                }
+            )
         return self._pauli_rep_cached
 
     def generator(self) -> "qml.Projector":
@@ -621,10 +639,21 @@ class Rot(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : qml.math.cos(self._theta / 2) * qml.math.cos((self._phi + self._omega) / 2),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'X'}) : -1j * qml.math.sin(self._theta / 2) * qml.math.sin((self._phi - self._omega) / 2),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Y'}) : -1j * qml.math.cos((self._phi - self._omega) / 2) * qml.math.sin((self._theta) / 2),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Z'}) : -1j * qml.math.cos(self._theta / 2) * qml.math.sin((self._phi + self._omega) / 2)})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): qml.math.cos(self._theta / 2)
+                    * qml.math.cos((self._phi + self._omega) / 2),
+                    qml.pauli.PauliWord({self.wires[0]: "X"}): -1j
+                    * qml.math.sin(self._theta / 2)
+                    * qml.math.sin((self._phi - self._omega) / 2),
+                    qml.pauli.PauliWord({self.wires[0]: "Y"}): -1j
+                    * qml.math.cos((self._phi - self._omega) / 2)
+                    * qml.math.sin((self._theta) / 2),
+                    qml.pauli.PauliWord({self.wires[0]: "Z"}): -1j
+                    * qml.math.cos(self._theta / 2)
+                    * qml.math.sin((self._phi + self._omega) / 2),
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(
@@ -810,8 +839,14 @@ class U1(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : 0.5 * (1 + qml.math.exp(1j * self._phi)),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Z'}) : 0.5 * (1 - qml.math.exp(1j * self._phi))})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): 0.5
+                    * (1 + qml.math.exp(1j * self._phi)),
+                    qml.pauli.PauliWord({self.wires[0]: "Z"}): 0.5
+                    * (1 - qml.math.exp(1j * self._phi)),
+                }
+            )
         return self._pauli_rep_cached
 
     def generator(self) -> "qml.Projector":
@@ -947,10 +982,22 @@ class U2(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : 0.5 * INV_SQRT2 * (1 + qml.math.exp(1j * (self._delta + self._phi))),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'X'}) : 0.5 * INV_SQRT2 * (qml.math.exp(1j * self._phi) - qml.math.exp(1j * self._delta)),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Y'}) : -0.5j * INV_SQRT2 * (qml.math.exp(1j * self._phi) + qml.math.exp(1j * self._delta)),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Z'}) : 0.5 * INV_SQRT2 * (1 - qml.math.exp(1j * (self._delta + self._phi)))})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): 0.5
+                    * INV_SQRT2
+                    * (1 + qml.math.exp(1j * (self._delta + self._phi))),
+                    qml.pauli.PauliWord({self.wires[0]: "X"}): 0.5
+                    * INV_SQRT2
+                    * (qml.math.exp(1j * self._phi) - qml.math.exp(1j * self._delta)),
+                    qml.pauli.PauliWord({self.wires[0]: "Y"}): -0.5j
+                    * INV_SQRT2
+                    * (qml.math.exp(1j * self._phi) + qml.math.exp(1j * self._delta)),
+                    qml.pauli.PauliWord({self.wires[0]: "Z"}): 0.5
+                    * INV_SQRT2
+                    * (1 - qml.math.exp(1j * (self._delta + self._phi))),
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(
@@ -1106,10 +1153,22 @@ class U3(Operation):
     @property
     def _pauli_rep(self):
         if self._pauli_rep_cached is None:
-            self._pauli_rep_cached = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : 0.5 * (1 + qml.math.exp(1j * (self._delta + self._phi))) * qml.math.cos(self._theta / 2),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'X'}) : -0.5 * (qml.math.exp(1j * self._delta) - qml.math.exp(1j * self._phi)) * qml.math.sin(self._theta / 2),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Y'}) : -0.5j * (qml.math.exp(1j * self._delta) + qml.math.exp(1j * self._phi)) * qml.math.sin(self._theta / 2),
-                                                              qml.pauli.PauliWord({self.wires[0]: 'Z'}) : 0.5 * (1 - qml.math.exp(1j * (self._delta + self._phi))) * qml.math.cos(self._theta / 2)})
+            self._pauli_rep_cached = qml.pauli.PauliSentence(
+                {
+                    qml.pauli.PauliWord({self.wires[0]: "I"}): 0.5
+                    * (1 + qml.math.exp(1j * (self._delta + self._phi)))
+                    * qml.math.cos(self._theta / 2),
+                    qml.pauli.PauliWord({self.wires[0]: "X"}): -0.5
+                    * (qml.math.exp(1j * self._delta) - qml.math.exp(1j * self._phi))
+                    * qml.math.sin(self._theta / 2),
+                    qml.pauli.PauliWord({self.wires[0]: "Y"}): -0.5j
+                    * (qml.math.exp(1j * self._delta) + qml.math.exp(1j * self._phi))
+                    * qml.math.sin(self._theta / 2),
+                    qml.pauli.PauliWord({self.wires[0]: "Z"}): 0.5
+                    * (1 - qml.math.exp(1j * (self._delta + self._phi)))
+                    * qml.math.cos(self._theta / 2),
+                }
+            )
         return self._pauli_rep_cached
 
     def __init__(
