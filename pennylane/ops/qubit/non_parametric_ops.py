@@ -77,6 +77,10 @@ class Hadamard(Observable, Operation):
     def name(self) -> str:
         return "Hadamard"
 
+    def __init__(self, wires: WiresLike, id: Optional[str] = None):
+        super().__init__(wires=wires, id=id)
+        self._pauli_rep = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'X'}) : INV_SQRT2, qml.pauli.PauliWord({self.wires[0]: 'Z'}) : INV_SQRT2})
+
     @staticmethod
     @lru_cache()
     def compute_matrix() -> np.ndarray:  # pylint: disable=arguments-differ
@@ -815,6 +819,10 @@ class S(Operation):
 
     batch_size = None
 
+    def __init__(self, wires: WiresLike, id: Optional[str] = None):
+        super().__init__(wires=wires, id=id)
+        self._pauli_rep = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : 0.5 + 0.5j, qml.pauli.PauliWord({self.wires[0]: 'Z'}) : 0.5 - 0.5j})
+
     @staticmethod
     @lru_cache()
     def compute_matrix() -> np.ndarray:  # pylint: disable=arguments-differ
@@ -927,6 +935,10 @@ class T(Operation):
 
     batch_size = None
 
+    def __init__(self, wires: WiresLike, id: Optional[str] = None):
+        super().__init__(wires=wires, id=id)
+        self._pauli_rep = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : (0.5 + 0.5 * INV_SQRT2 * (1 + 1.j)), qml.pauli.PauliWord({self.wires[0]: 'Z'}) : (0.5 - 0.5 * INV_SQRT2 * (1 + 1.j))})
+
     @staticmethod
     @lru_cache()
     def compute_matrix() -> np.ndarray:  # pylint: disable=arguments-differ
@@ -1036,6 +1048,10 @@ class SX(Operation):
     """int: Number of trainable parameters that the operator depends on."""
 
     basis = "X"
+
+    def __init__(self, wires: WiresLike, id: Optional[str] = None):
+        super().__init__(wires=wires, id=id)
+        self._pauli_rep = qml.pauli.PauliSentence({qml.pauli.PauliWord({self.wires[0]: 'I'}) : (0.5 + 0.5j), qml.pauli.PauliWord({self.wires[0]: 'X'}) : (0.5 - 0.5j)})
 
     @staticmethod
     @lru_cache()
@@ -1152,6 +1168,13 @@ class SWAP(Operation):
 
     batch_size = None
 
+    def __init__(self, wires: WiresLike, id: Optional[str] = None):
+        super().__init__(wires=wires, id=id)
+        self._pauli_rep = qml.pauli.PauliSentence({ qml.pauli.PauliWord({self.wires[0]: 'I', self.wires[1]: 'I'}) : 0.5,
+                                                    qml.pauli.PauliWord({self.wires[0]: 'X', self.wires[1]: 'X'}) : 0.5,
+                                                    qml.pauli.PauliWord({self.wires[0]: 'Y', self.wires[1]: 'Y'}) : 0.5,
+                                                    qml.pauli.PauliWord({self.wires[0]: 'Z', self.wires[1]: 'Z'}) : 0.5 })
+
     @staticmethod
     @lru_cache()
     def compute_matrix() -> np.ndarray:  # pylint: disable=arguments-differ
@@ -1242,6 +1265,11 @@ class ECR(Operation):
     num_params = 0
 
     batch_size = None
+
+    def __init__(self, wires: WiresLike, id: Optional[str] = None):
+        super().__init__(wires=wires, id=id)
+        self._pauli_rep = qml.pauli.PauliSentence({ qml.pauli.PauliWord({self.wires[0]: 'X', self.wires[1]: 'I'}) :   INV_SQRT2,
+                                                    qml.pauli.PauliWord({self.wires[0]: 'Y', self.wires[1]: 'X'}) : - INV_SQRT2 })
 
     @staticmethod
     def compute_matrix() -> np.ndarray:  # pylint: disable=arguments-differ
@@ -1371,6 +1399,13 @@ class ISWAP(Operation):
 
     batch_size = None
 
+    def __init__(self, wires: WiresLike, id: Optional[str] = None):
+        super().__init__(wires=wires, id=id)
+        self._pauli_rep = qml.pauli.PauliSentence({ qml.pauli.PauliWord({self.wires[0]: 'I', self.wires[1]: 'I'}) : 0.5,
+                                                    qml.pauli.PauliWord({self.wires[0]: 'X', self.wires[1]: 'X'}) : 0.5j,
+                                                    qml.pauli.PauliWord({self.wires[0]: 'Y', self.wires[1]: 'Y'}) : 0.5j,
+                                                    qml.pauli.PauliWord({self.wires[0]: 'Z', self.wires[1]: 'Z'}) : 0.5 })
+
     @staticmethod
     @lru_cache()
     def compute_matrix() -> np.ndarray:  # pylint: disable=arguments-differ
@@ -1487,6 +1522,13 @@ class SISWAP(Operation):
     """int: Number of trainable parameters that the operator depends on."""
 
     batch_size = None
+
+    def __init__(self, wires: WiresLike, id: Optional[str] = None):
+        super().__init__(wires=wires, id=id)
+        self._pauli_rep = qml.pauli.PauliSentence({ qml.pauli.PauliWord({self.wires[0]: 'I', self.wires[1]: 'I'}) : 0.5 + 0.5 * INV_SQRT2,
+                                                    qml.pauli.PauliWord({self.wires[0]: 'X', self.wires[1]: 'X'}) : 0.5j * INV_SQRT2,
+                                                    qml.pauli.PauliWord({self.wires[0]: 'Y', self.wires[1]: 'Y'}) : 0.5j * INV_SQRT2,
+                                                    qml.pauli.PauliWord({self.wires[0]: 'Z', self.wires[1]: 'Z'}) : 0.5 - 0.5 * INV_SQRT2 })
 
     @staticmethod
     @lru_cache()
