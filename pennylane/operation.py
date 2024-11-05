@@ -1117,9 +1117,6 @@ class Operator(abc.ABC, metaclass=ABCCaptureMeta):
 
         self._name: str = self.__class__.__name__  #: str: name of the operator
         self._id: str = id
-        self._pauli_rep: Optional[qml.pauli.PauliSentence] = (
-            None  # Union[PauliSentence, None]: Representation of the operator as a pauli sentence, if applicable
-        )
 
         wires_from_args = False
         if wires is None:
